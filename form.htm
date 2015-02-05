@@ -20,7 +20,7 @@
 				</div>
 				<div id="bug" class="subForm submitForm formBug">
 					<h1>Bug</h1>
-					<form id="bugForm" action="#" method="post">
+					<form id="bugForm" action="#" method="post" onsubmit="return submitBug();">
 						<table>
 							<tr>
 								<td><span>Description:</span></td>
@@ -36,7 +36,7 @@
 				</div>
 				<div id="suggestion" class="subForm submitForm formSuggestion">
 					<h1>Suggestion</h1>
-					<form id="suggestionForm" action="#" method="post">
+					<form id="suggestionForm" action="#" method="post" onsubmit="return submitSuggestion();">
 						
 					</form>
 					<button class="curved backButton" onClick="back();">Back</button>
