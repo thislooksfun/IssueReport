@@ -67,24 +67,24 @@ table.buttonTable {
 
 button.curved {
 	-webkit-appearance: none;
-
+	
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-
+	
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-
+	
 	-webkit-transition: border .25s linear, color .25s linear, background-color .15s linear;
 	-moz-transition: border .25s linear, color .25s linear, background-color .15s linear;
 	-o-transition: border .25s linear, color .25s linear, background-color .15s linear;
 	transition: border .25s linear, color .25s linear, background-color .15s linear;
-
+	
 	-webkit-backface-visibility: hidden;
-
+	
 	cursor: pointer;
-
+	
 	position: relative;
 }
 
@@ -93,12 +93,12 @@ button.backButton {
 	top: 10px;
 	left: 10px;
 	width: 150px;
-
+	
 	border: 2px solid #ccc;
 	background-color: #333;
 	color: #aaa;
 	font-size: 30px;
-
+	
 	padding: 5px 0px;
 	padding-right: 6px;
 	margin-bottom: 10px;
@@ -113,11 +113,11 @@ button.selectButton {
 	background-color: #333;
 	border: 2px solid #ccc;
 	color: #aaa;
-
+	
 	width: 400px;
-
+	
 	font-size: 50px;
-
+	
 	padding: 5px 0px;
 	padding-right: 6px;
 	padding-bottom: 10px;
