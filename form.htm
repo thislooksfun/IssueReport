@@ -5,6 +5,7 @@
 		<script src="js/jquery-2.1.3.min.js"></script>
 		<script src="js/form.js"></script>
 		<link rel="stylesheet" href="css/form.css" charset="utf-8">
+		<link rel="stylesheet" href="css/subform.css" charset="utf-8">
 	</head>
 	<body>
 		<div class="page">
@@ -18,19 +19,28 @@
 						</tbody>
 					</table>
 				</div>
-				<div id="bug" class="subForm submitForm formBug">
+				<div id="bug" class="subForm  formBug"> <!--submitForm-->
 					<h1>Bug</h1>
 					<form id="bugForm" action="#" method="post" onsubmit="return submitBug();">
-						<table>
+						<table class="formTable">
 							<tr>
-								<td><span>Description:</span></td>
-								<td><input type="text" name="title" value=""></td>
+								<td><span class="big">Description:</span></td>
+								<td><input type="text" class="rounded" name="title" value=""/></td>
 							</tr>
 							<tr>
-								<td><span>Body:</span></td>
-								<td><textarea name="body" rows="8" cols="40"></textarea></td>
+								<td><span class="big">Body:</span></td>
+								<td><textarea name="body" class="rounded" rows="8" cols="40"></textarea></td>
+							</tr>
+							<tr>
+								<td><span class="big">Crash/Error log:</span></td>
+								<td>
+									<div class="rounded">
+										<input type="file" name="file" value=""/> <span class="sub">No crash log generated: </span><input type="checkbox" name="title" value=""/>
+									</div>
+								</td>
 							</tr>
 						</table>
+						<input type="submit" class="rounded" name="some_name" value="Submit"/>
 					</form>
 					<button class="curved backButton" onClick="back();">Back</button>
 				</div>
