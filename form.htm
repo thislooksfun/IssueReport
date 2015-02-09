@@ -4,8 +4,10 @@
 		<title>Submit Issue</title>
 		<script src="js/jquery-2.1.3.min.js"></script>
 		<script src="js/form.js"></script>
+		<script src="js/bugForm.js"></script>
 		<link rel="stylesheet" href="css/form.css" charset="utf-8">
 		<link rel="stylesheet" href="css/subform.css" charset="utf-8">
+		<link rel="stylesheet" href="css/errors.css" charset="utf-8">
 	</head>
 	<body>
 		<div class="page">
@@ -25,22 +27,35 @@
 						<table class="formTable">
 							<tr>
 								<td><span class="big">Description:</span></td>
-								<td><input type="text" class="rounded" name="title" value=""/></td>
+								<td><input type="text" id="name" class="rounded" name="name" value=""/></td>
 							</tr>
 							<tr>
 								<td><span class="big">Body:</span></td>
-								<td><textarea name="body" class="rounded" rows="8" cols="40"></textarea></td>
+								<td><textarea name="body" id="body" class="rounded" rows="8" cols="40"></textarea></td>
 							</tr>
 							<tr>
 								<td><span class="big">Crash/Error log:</span></td>
 								<td>
-									<div class="rounded">
-										<input type="file" name="file" value=""/> <span class="sub">No crash log generated: </span><input type="checkbox" name="title" value=""/>
+									<div id="crashReport" class="rounded crashReport">
+										<div class="crashTypeContainer">
+											<div class="crashType"><input type="file" id="crashFile" name="crashFile"/></div>
+											<div class="crashType"><input type="text" id="crashUrl" class="rounded small" name="crashLink" style="display:none;"/></div>
+										</div>
+										<div class="fileSelect">
+											<label for="file">File</label>
+											<input type="radio" id="file" name="crashType" value="file" checked="true">
+											<label for="file"> Link</label>
+											<input type="radio" id="link" name="crashType" value="link">
+											<div class="no_log">
+												<label for="noLog">No crash log generated</span>
+												<input type="checkbox" id="noLog" name="noLog" value=""/>
+											</div>
+										</div>
 									</div>
 								</td>
 							</tr>
 						</table>
-						<input type="submit" class="rounded" name="some_name" value="Submit"/>
+						<div class="center"><input type="submit" id="submitBtn" class="rounded" name="some_name" value="Submit"/></div>
 					</form>
 					<button class="curved backButton" onClick="back();">Back</button>
 				</div>

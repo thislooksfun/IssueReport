@@ -9,14 +9,13 @@ table.formTable td:first-child {
 
 .rounded {
 	position: relative;
-	width: 500px;
 	
 	background: transparent;
-	border: 2px solid #46AC84;
+	border: 2px solid #ccc;
 	color: #aaa;
 	font-family: "Lato", sans-serif;
 	font-size: 19px;
-	padding: 9px 5px;
+	padding: 9px 9px;
 	margin-bottom: 10px;
 	-webkit-appearance: none;
 	-webkit-border-radius: 6px;
@@ -34,28 +33,75 @@ table.formTable td:first-child {
 	z-index: 1;
 }
 
+.rounded.success {
+	border: 2px solid #31C478;
+}
+
 .rounded.error {
-	border: 2px solid red;
+	border: 2px solid #C43131;
 }
 
 input.rounded {
 	height: 21px;
+	width: 600px;
 }
 
 input.rounded[type=submit] {
 	height: 45px;
+	width: 200px;
+	cursor: pointer;
 	text-align: center;
 }
 
 textarea.rounded {
 	height: 300px;
-	resize: none;
+	width: 600px;
+	resize: vertical;
+	padding-left: 9px;
 }
 
 input.rounded:focus, textarea.rounded:focus {
 	outline: 0;
 }
 
+input.rounded.small {
+	height: 10px;
+	width: 500px;
+	font-size: 15;
+}
+
 div.subForm span.big {
 	font-size: 30px;
+}
+
+div.bugForm {
+	height: 600px;
+}
+
+div.crashTypeContainer {
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+div.rounded.crashReport {
+	height: 60px;
+}
+
+div.crashType {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+div.fileSelect {
+	position: absolute;
+	width: 600px;
+	bottom: 10px;
+}
+
+div.no_log {
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
 }
