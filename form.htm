@@ -8,6 +8,13 @@
 		<link rel="stylesheet" href="css/form.css" charset="utf-8">
 		<link rel="stylesheet" href="css/subform.css" charset="utf-8">
 		<link rel="stylesheet" href="css/errors.css" charset="utf-8">
+		<!--[if gte IE 9]>
+			<style type="text/css">
+    			.error::before {
+					filter: none;
+    			}
+			</style>
+		<![endif]-->
 	</head>
 	<body>
 		<div class="page">
@@ -21,22 +28,34 @@
 						</tbody>
 					</table>
 				</div>
-				<div id="bug" class="subForm  formBug"> <!--submitForm-->
+				<div id="bug" class="subForm formBug hidden">
 					<h1>Bug</h1>
 					<form id="bugForm" action="#" method="post" onsubmit="return submitBug();">
 						<table class="formTable">
 							<tr>
 								<td><span class="big">Description:</span></td>
 								<td><input type="text" id="name" class="rounded" name="name" value=""/></td>
+								<td>
+									<div id="nameErrors" class="errorDiv">
+										<div class="errorMsg blank">Can't be blank</div>
+										<div class="errorMsg space">Can't be all spaces</div>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td><span class="big">Body:</span></td>
 								<td><textarea name="body" id="body" class="rounded" rows="8" cols="40"></textarea></td>
+								<td>
+									<div id="bodyErrors" class="errorDiv">
+										<div class="errorMsg blank">Can't be blank</div>
+										<div class="errorMsg space">Can't be all spaces</div>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td><span class="big">Crash/Error log:</span></td>
 								<td>
-									<div id="crashReport" class="rounded crashReport">
+									<div id="crashReport" class="errorContainer rounded crashReport">
 										<div class="crashTypeContainer">
 											<div class="crashType"><input type="file" id="crashFile" name="crashFile"/></div>
 											<div class="crashType"><input type="text" id="crashUrl" class="rounded small" name="crashLink" style="display:none;"/></div>
@@ -53,16 +72,48 @@
 										</div>
 									</div>
 								</td>
+								<td>
+									<div id="fileErrors" class="errorDiv">
+										<div class="errorMsg file blank">No file attached</div>
+										<div class="errorMsg url blank">Can't be blank</div>
+										<div class="errorMsg space">Can't be all spaces</div>
+										<div class="errorMsg urlFormat">Invalid URL</div>
+									</div>
+								</td>
 							</tr>
 						</table>
-						<div class="center"><input type="submit" id="submitBtn" class="rounded" name="some_name" value="Submit"/></div>
+						<div class="center submitBtnContainer"><input type="submit" id="submitBtn" class="rounded" name="some_name" value="Submit"/>
+							<div class="disableMaskReference"><div class="disableMask"></div></div>
+						</div>
 					</form>
 					<button class="curved backButton" onClick="back();">Back</button>
 				</div>
-				<div id="suggestion" class="subForm submitForm formSuggestion">
+				<div id="suggestion" class="subForm formSuggestion hidden">
 					<h1>Suggestion</h1>
-					<form id="suggestionForm" action="#" method="post" onsubmit="return submitSuggestion();">
-						<!-- TODO -->
+					<form id="suggestForm" action="#" method="post" onsubmit="return submitBug();">
+						<table class="formTable">
+							<tr>
+								<td><span class="big">Description:</span></td>
+								<td><input type="text" id="name" class="rounded" name="name" value=""/></td>
+								<td>
+									<div id="nameErrors" class="errorDiv">
+										<div class="errorMsg blank">Can't be blank</div>
+										<div class="errorMsg space">Can't be all spaces</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><span class="big">Body:</span></td>
+								<td><textarea name="body" id="body" class="rounded" rows="8" cols="40"></textarea></td>
+								<td>
+									<div id="bodyErrors" class="errorDiv">
+										<div class="errorMsg blank">Can't be blank</div>
+										<div class="errorMsg space">Can't be all spaces</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div class="center submitBtnContainer"><input type="submit" id="submitBtn" class="rounded" name="some_name" value="Submit"/><div class="disableMaskReference"></div></div>
 					</form>
 					<button class="curved backButton" onClick="back();">Back</button>
 				</div>

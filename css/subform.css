@@ -2,7 +2,7 @@ table.formTable {
 	margin: 0 auto;
 }
 
-table.formTable td:first-child {
+table.formTable td:nth-child(odd) {
 	vertical-align: text-top;
 	text-align: right;
 }
@@ -66,8 +66,40 @@ input.rounded:focus, textarea.rounded:focus {
 
 input.rounded.small {
 	height: 10px;
-	width: 500px;
+	width: 400px;
 	font-size: 15;
+}
+
+.disableMaskReference {
+	position: relative;
+	height: 0px;
+	width: 0px;
+	top: -55px;
+	left: calc(50% - 100px);
+}
+
+.disableMask {
+	position: absolute;
+	height: 45px;
+	width: 200px;
+	
+	background-color: #444;
+	opacity: 0;
+	
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	
+	-webkit-transition: opacity .25s linear;
+	-moz-transition: opacity .25s linear;
+	-o-transition: opacity .25s linear;
+	transition: opacity .25s linear;
+	
+	z-index: 1;
+}
+
+.disableMask.disabled {
+	opacity: 0.4;
 }
 
 div.subForm span.big {

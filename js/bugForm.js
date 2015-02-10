@@ -1,23 +1,21 @@
 function registerInputs()
 {
-	var func = function() { Checkers.checkAll(); };
-	//Name
-	$("#bugForm #name").keyup(func).focus(func).blur(func);
+	$(".errorMsg").css("opacity", "0");
 	
-	//Body
-	$("#bugForm #body").keyup(func).focus(func).blur(func);
-	
-	//File
-	var func2 = function() {
+	var bugCheck = function() { BugCheckers.checkAll(); };
+	$("#bugForm #name, #bugForm #body, #bugForm #crashUrl").keyup(bugCheck).focus(bugCheck).blur(bugCheck);
+	$("#bugForm #link, #bugForm #file").click(function() {
 		switchFileType(this);
-		Checkers.checkAll();
-	}
-	$("#bugForm #link, #bugForm #file").click(func2);
-	$("#bugForm #noLog").click(func);
-	$("#bugForm #crashFile").change(func);
-	$("#bugForm #crashUrl").keyup(func).focus(func).blur(func);
+		BugCheckers.checkAll();
+	});
+	$("#bugForm #noLog").click(bugCheck);
+	$("#bugForm #crashFile").change(bugCheck);
 	
-	Checkers.checkAll();
+	var suggestCheck = function() { SuggestCheckers.checkAll(); };
+	$("#suggestForm #name, #suggestForm #body").keyup(suggestCheck).focus(suggestCheck).blur(suggestCheck);
+	
+	BugCheckers.checkAll();
+	SuggestCheckers.checkAll();
 }
 
 function switchFileType(obj)
@@ -29,43 +27,58 @@ function switchFileType(obj)
 	} else
 	{
 		$("#bugForm #crashFile").css("display", "none");
-		$("#bugForm #crashUrl").css("display", "");
+		$("#bugForm #crashUrl").css("display", "").focus();
 	}
 }
 
 var URLMatch = /^[-a-zA-Z0-9:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(\?([-a-zA-Z0-9@:%_\+.~#?&//=]+)|)$/;
 
-var Checkers = {
+var BugCheckers = {
 	checkName: function()
 	{
 		var name = $("#bugForm #name");
+		
 		if (this.checkBlank(name))
 		{
-			name.removeClass("success errorSpaces").addClass("error errorBlank");
+			name.removeClass("success").addClass("error");
+			$("#bugForm #nameErrors .blank").css("opacity", "1");
+			$("#bugForm #nameErrors .space").css("opacity", "0");
 			return false;
 		} else if (this.checkSpaces(name))
 		{
-			name.removeClass("success errorBlank").addClass("error errorSpaces");
+			name.removeClass("success").addClass("error");
+			$("#bugForm #nameErrors .blank").css("opacity", "0");
+			$("#bugForm #nameErrors .space").css("opacity", "1");
 			return false;
 		} else
 		{
-			name.removeClass("error errorBlank errorSpaces").addClass("success");
+			name.removeClass("error").addClass("success");
+			$("#bugForm #nameErrors .blank").css("opacity", "0");
+			$("#bugForm #nameErrors .space").css("opacity", "0");
 			return true;
 		}
 	},
 	checkBody: function()
 	{
 		var body = $("#bugForm #body");
-		if (this.checkBlank(body)) {
-			body.removeClass("success errorSpaces").addClass("error errorBlank");
+		
+		if (this.checkBlank(body))
+		{
+			body.removeClass("success").addClass("error");
+			$("#bugForm #bodyErrors .blank").css("opacity", "1");
+			$("#bugForm #bodyErrors .space").css("opacity", "0");
 			return false;
 		} else if (this.checkSpaces(body))
 		{
-			body.removeClass("success errorBlank").addClass("error errorSpaces");
+			body.removeClass("success").addClass("error");
+			$("#bugForm #bodyErrors .blank").css("opacity", "0");
+			$("#bugForm #bodyErrors .space").css("opacity", "1");
 			return false;
 		} else
 		{
-			body.removeClass("error errorBlank errorSpaces").addClass("success");
+			body.removeClass("error").addClass("success");
+			$("#bugForm #bodyErrors .blank").css("opacity", "0");
+			$("#bugForm #bodyErrors .space").css("opacity", "0");
 			return true;
 		}
 	},
@@ -76,6 +89,10 @@ var Checkers = {
 		if ($("#bugForm #noLog").is(":checked"))
 		{
 			container.removeClass("error").addClass("success");
+			$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+			$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+			$("#bugForm #fileErrors .space").css("opacity", "0");
+			$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 			return true;
 		}
 		
@@ -87,34 +104,54 @@ var Checkers = {
 		{
 			if (this.checkBlank(file))
 			{
-				container.removeClass("success errorSpaces").addClass("error errorBlank");
-				return false;
-			} else if (this.checkSpaces(file))
-			{
-				container.removeClass("success errorBlank").addClass("error errorSpaces");
+				container.removeClass("success").addClass("error");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "1");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .space").css("opacity", "0");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 				return false;
 			} else
 			{
-				container.removeClass("error errorBlank errorSpaces").addClass("success");
+				container.removeClass("error").addClass("success");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .space").css("opacity", "0");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 				return true;
 			}
 		} else
 		{
 			if (this.checkBlank(url))
 			{
-				container.removeClass("success errorSpaces errorUrlFormat").addClass("error errorBlank");
+				container.removeClass("success").addClass("error");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "1");
+				$("#bugForm #fileErrors .space").css("opacity", "0");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 				return false;
 			} else if (this.checkSpaces(url))
 			{
-				container.removeClass("success errorBlank errorUrlFormat").addClass("error errorSpaces");
+				container.removeClass("success").addClass("error");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .space").css("opacity", "1");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 				return false;
 			} else if (!URLMatch.test(url.val()))
 			{
-				container.removeClass("success errorBlank errorSpaces").addClass("error errorUrlFormat");
+				container.removeClass("success").addClass("error");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .space").css("opacity", "0");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "1");
 				return false;
 			} else
 			{
-				container.removeClass("error errorBlank errorSpaces errorUrlFormat").addClass("success");
+				container.removeClass("error").addClass("success");
+				$("#bugForm #fileErrors .file.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .url.blank").css("opacity", "0");
+				$("#bugForm #fileErrors .space").css("opacity", "0");
+				$("#bugForm #fileErrors .urlFormat").css("opacity", "0");
 				return true;
 			}
 		}
@@ -125,42 +162,96 @@ var Checkers = {
 	checkSpaces: function(obj) {
 		return ((typeof obj.val() == "string" || obj.val() instanceof String) && /^\s+$/.test($(obj).val()));
 	},
-	checkAll: function(obj)
+	checkAll: function()
 	{
 		var name = this.checkName();
 		var body = this.checkBody();
 		var file = this.checkFile();
 		var success = name && body && file;
 		if (success) {
-			$("#bugForm #submitBtn").removeClass("error").addClass("success").attr('disabled','disabled');
+			$("#bugForm #submitBtn").removeClass("error").addClass("success").removeAttr("disabled").parent().find(".disableMask").removeClass("disabled");
 		} else {
-			$("#bugForm #submitBtn").removeClass("success").addClass("error").removeAttr('disabled');
+			$("#bugForm #submitBtn").removeClass("success").addClass("error").attr("disabled","disabled").parent().find(".disableMask").addClass("disabled");
 		}
+		return success;
 	}
 };
 
-/*
-function checkInput(obj)
-{
-	if ($(obj).val() == "" || /^ .*$/.test($(obj).val()))
+var SuggestCheckers = {
+	checkName: function()
 	{
-		//TODO More/better checks
+		var name = $("#suggestForm #name");
 		
-		$(obj).addClass("error");
-		$(obj).addClass("errorBlank");
+		if (this.checkBlank(name))
+		{
+			name.removeClass("success").addClass("error");
+			$("#suggestForm #nameErrors .blank").css("opacity", "1");
+			$("#suggestForm #nameErrors .space").css("opacity", "0");
+			return false;
+		} else if (this.checkSpaces(name))
+		{
+			name.removeClass("success").addClass("error");
+			$("#suggestForm #nameErrors .blank").css("opacity", "0");
+			$("#suggestForm #nameErrors .space").css("opacity", "1");
+			return false;
+		} else
+		{
+			name.removeClass("error").addClass("success");
+			$("#suggestForm #nameErrors .blank").css("opacity", "0");
+			$("#suggestForm #nameErrors .space").css("opacity", "0");
+			return true;
+		}
+	},
+	checkBody: function()
+	{
+		var body = $("#suggestForm #body");
 		
-		$($(obj).closest("form").data("submit")).addClass("error");
+		if (this.checkBlank(body))
+		{
+			body.removeClass("success").addClass("error");
+			$("#suggestForm #bodyErrors .blank").css("opacity", "1");
+			$("#suggestForm #bodyErrors .space").css("opacity", "0");
+			return false;
+		} else if (this.checkSpaces(body))
+		{
+			body.removeClass("success").addClass("error");
+			$("#suggestForm #bodyErrors .blank").css("opacity", "0");
+			$("#suggestForm #bodyErrors .space").css("opacity", "1");
+			return false;
+		} else
+		{
+			body.removeClass("error").addClass("success");
+			$("#suggestForm #bodyErrors .blank").css("opacity", "0");
+			$("#suggestForm #bodyErrors .space").css("opacity", "0");
+			return true;
+		}
+	},
+	checkBlank: function(obj) {
+		return $(obj).val() == "";
+	},
+	checkSpaces: function(obj) {
+		return ((typeof obj.val() == "string" || obj.val() instanceof String) && /^\s+$/.test($(obj).val()));
+	},
+	checkAll: function()
+	{
+		var name = this.checkName();
+		var body = this.checkBody();
+		var success = name && body;
+		if (success) {
+			$("#suggestForm #submitBtn").removeClass("error").addClass("success").removeAttr('disabled').parent().find(".disableMask").removeClass("disabled");
+		} else {
+			$("#suggestForm #submitBtn").removeClass("success").addClass("error").attr('disabled','disabled').parent().find(".disableMask").addClass("disabled");
+		}
 		
-		return false;
-	} else {
-		$(obj).addClass("success");
-		return true;
+		return success;
 	}
-}
-*/
+};
 
 function submitBug()
 {
+	if (!BugCheckers.checkAll())
+		return false;
+	
 	var bugForm = $('#bugForm');
 	console.log("Submitting bug!");
 	/*$.ajax({
@@ -176,6 +267,9 @@ function submitBug()
 
 function submitSuggestion()
 {
+	if (!SuggestCheckers.checkAll())
+		return false;
+	
 	var suggestionForm = $('#suggestionForm');
 	console.log("Submitting suggestion!");
 	/*$.ajax({

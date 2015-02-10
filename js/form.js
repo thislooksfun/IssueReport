@@ -1,10 +1,9 @@
 function selectForm(form)
 {
-	$(form).css("left", "0px");
+	$(form).removeClass("hidden");
 }
 
 function back()
 {
-	$("#bug").css("left", "100%");
-	$("#suggestion").css("left", "100%");
+	$("#bug, #suggestion").addClass("hidden");
 }

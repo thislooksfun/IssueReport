@@ -35,13 +35,23 @@ div.formContainer {
 div.subForm {
 	position: absolute;
 	top: 0px;
+    left: 0px;
 	width: 100%;
 	height: 100%;
 	background-color: #333;
-	-webkit-transition: left .4s ease;
-	-moz-transition: left .4s ease;
-	-o-transition: left .4s ease;
-	transition: left .4s ease;
+	-webkit-transition: left .4s ease, visibility 0s linear;
+	-moz-transition: left .4s ease, visibility 0s linear;
+	-o-transition: left .4s ease, visibility 0s linear;
+	transition: left .4s ease, visibility 0s linear;
+}
+
+div.subForm.hidden {
+    left: 100%;
+    visibility: hidden;
+    -webkit-transition: left .4s ease, visibility 0s linear .4s;
+    -moz-transition: left .4s ease, visibility 0s linear .4s;
+    -o-transition: left .4s ease, visibility 0s linear .4s;
+    transition: left .4s ease, visibility 0s linear .4s;
 }
 
 div.subForm h1 {
@@ -52,10 +62,6 @@ div.formSelect {
 	margin: 0 auto;
 	text-align: center;
 	left: 0px;
-}
-
-div.submitForm {
-	left: 100%;
 }
 
 div.footer {
@@ -87,16 +93,23 @@ button.curved {
 	-moz-box-shadow: none;
 	box-shadow: none;
 	
-	-webkit-transition: border .25s linear, color .25s linear, background-color .15s linear;
-	-moz-transition: border .25s linear, color .25s linear, background-color .15s linear;
-	-o-transition: border .25s linear, color .25s linear, background-color .15s linear;
-	transition: border .25s linear, color .25s linear, background-color .15s linear;
+	-webkit-transition: border .25s linear, background-color .15s linear;
+	-moz-transition: border .25s linear, background-color .15s linear;
+	-o-transition: border .25s linear, background-color .15s linear;
+	transition: border .25s linear, background-color .15s linear;
 	
 	-webkit-backface-visibility: hidden;
 	
 	cursor: pointer;
 	
 	position: relative;
+}
+
+input[type="submit"].rounded {
+    -webkit-transition: border .25s linear, background-color .15s linear;
+    -moz-transition: border .25s linear, background-color .15s linear;
+    -o-transition: border .25s linear, background-color .15s linear;
+    transition: border .25s linear, background-color .15s linear;
 }
 
 button.backButton {
@@ -116,10 +129,6 @@ button.backButton {
 	text-indent: 6px;
 }
 
-button.backButton:hover {
-	background-color: #222;
-}
-
 button.selectButton {
 	background-color: #333;
 	border: 2px solid #ccc;
@@ -136,6 +145,6 @@ button.selectButton {
 	text-indent: 6px;
 }
 
-button.selectButton:hover {
+button.selectButton:hover, button.backButton:hover, input[type="submit"].rounded:hover {
 	background-color: #222;
 }
